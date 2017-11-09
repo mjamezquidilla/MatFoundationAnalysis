@@ -1,0 +1,787 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Mat\_Foundation\_Analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Mat Foundation Analysis and Design using
+SAP2000}\label{mat-foundation-analysis-and-design-using-sap2000}
+
+\textbf{Gitamondoc Gopaoco Structural Engineering}
+
+\textbf{Engr. Michael James C. Quidilla, CE}
+
+\emph{Updated: November 09, 2017}
+
+    \subsection{Assumptions for the Model}\label{assumptions-for-the-model}
+
+    \subsubsection{Model definition}\label{model-definition}
+
+    \begin{itemize}
+\item
+  Allowable Bearing Capaicty = \$ 200 kPa \$
+\item
+  Allowable deflection of soil = \$ 10mm \$
+\item
+  Spring stiffness coefficient = \$ 200kPa \$ / \$ 10mm \$ = \$
+  200000kN/m\^{}3 \$
+\item
+  Thickness of foundation = \$ 1.50m \$
+\item
+  Keep in mind that the results of SAP2000 from the table if extracted
+  via Resultant forces are in kN/m or kN*m/m. SAP2000 divided by a
+  \textbf{tributary width of 1m}. The result must then be multiplied by
+  the \textbf{tributary area} of the resultant force or moment.
+\item
+  The Earthquake was neglected on the analysis due the fact that column
+  load combination are governed by Dead plus Live. The governing
+  shearwall combination includes EQX and EQY. But the analysis is
+  focused on the positive and negative steel reinforcements per column
+  on top of the mat.
+\item
+  The stresses were extracted from SAP2000 via tables and plotted here
+  for better visualization.
+\end{itemize}
+
+The verification of modeling of the mat foundation was modeled initially
+with a isolated footing and compared it with its RCD counter part. The
+results summary are as follows:
+
+\begin{itemize}
+\item
+  the Ultimate bearing capacity \((Pu/Ag)\) distributed along the
+  isolated footing of the SAP2000 model were exactly the same as the
+  RCD's Ultimate bearing capacity. The difference in the bearing
+  capacity is that the SAP2000 model's spring reaction (idealized from
+  the soil pressure reaction) are more distributed in a circular manner
+  than the RCD's approach which is distributed evenly.
+\item
+  The Moment and punching shear of the SAP2000 model are nearly
+  identical compared to the RCD's approach. The computation of the
+  moment is at the critical section (at the face of the column for
+  moment and column dimension C + d (depth of footing) distance from the
+  center of the column for critical punching area for shear)
+\end{itemize}
+
+    \section{Exploration of the Data}\label{exploration-of-the-data}
+
+    \subsection{Summary Statistics of the Mat Foundation Ultimate Bearing
+Capacity}\label{summary-statistics-of-the-mat-foundation-ultimate-bearing-capacity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{reactions} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MatFoundationReactions\PYZhy{}1500mm.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{reactions}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}             Joint  GlobalX (mm)  GlobalY (mm)   Dead (kN)    EQX (kN)
+         count  888.000000    888.000000    888.000000  888.000000  888.000000
+         mean   463.959459   9551.041667  15132.162162  144.930963   35.655324
+         std    257.418111   5909.219702   8938.546894   46.321112   35.734753
+         min      1.000000      0.000000      0.000000    8.828000  -29.239000
+         25\%    242.750000   4475.000000   7843.330000  121.683000    6.940750
+         50\%    464.500000   9425.000000  14773.330000  155.777500   31.280000
+         75\%    686.250000  14490.625000  22750.000000  177.992750   61.144000
+         max    908.000000  19500.000000  30700.000000  216.582000  135.156000
+\end{Verbatim}
+            
+    \subsection{Plotting the Heat map of the Ultimate Beariing Capacity of
+Mat Foundation Based of Dead +
+Live}\label{plotting-the-heat-map-of-the-ultimate-beariing-capacity-of-mat-foundation-based-of-dead-live}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{plot\PYZus{}contour\PYZus{}map}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MatFoundationReactions\PYZhy{}1500mm.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{stress\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dead (kN)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{level} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nipy\PYZus{}spectral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oakrdige Building 2: Ultimate Bearing Capacity of Mat Foundation Heat Map}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{fsize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mat_Foundation_Analysis_files/Mat_Foundation_Analysis_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Summary Statistics of the Mat Foundation Shell
+Forces}\label{summary-statistics-of-the-mat-foundation-shell-forces}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{shell\PYZus{}forces} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ShellForcesCLEAN\PYZhy{}1500mm.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{shell\PYZus{}forces}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}             Joint  GlobalX (mm)  GlobalY (mm)         F11         F22  \textbackslash{}
+         count  888.000000    888.000000    888.000000  888.000000  888.000000   
+         mean   463.959459   9551.041667  15132.162162   23.028826   -9.630043   
+         std    257.418111   5909.219702   8938.546894   59.642665   71.201937   
+         min      1.000000      0.000000      0.000000 -331.550000 -610.381667   
+         25\%    242.750000   4475.000000   7843.330000   -1.010000   -4.736875   
+         50\%    464.500000   9425.000000  14773.330000    5.628750    0.581250   
+         75\%    686.250000  14490.625000  22750.000000   37.054375   12.420000   
+         max    908.000000  19500.000000  30700.000000  305.281667   84.335000   
+         
+                       F12        FMax        FMin      FAngle         FVM  \textbackslash{}
+         count  888.000000  888.000000  888.000000  888.000000  888.000000   
+         mean     0.846994   43.554174  -30.155535    0.323122   72.071122   
+         std     31.384247   55.449521   88.068414   42.668738  113.279964   
+         min   -157.791667  -33.100000 -839.435000  -89.402000    0.010560   
+         25\%     -5.561250    7.500625  -21.881875  -27.880562   11.867500   
+         50\%      0.210000   24.952500   -6.831250    0.536850   32.021250   
+         75\%      6.774375   56.845625   -1.806875   28.881375   75.271875   
+         max    158.472500  310.683333   45.007500   88.856250  889.335000   
+         
+                        M11          M22         M12         MMax         MMin  \textbackslash{}
+         count   888.000000   888.000000  888.000000   888.000000   888.000000   
+         mean    628.123909   252.299246    2.110660   739.293697   141.129456   
+         std     538.808755   502.471305  158.074327   539.163111   442.631580   
+         min     -81.734350  -628.994300 -591.538675   -28.802850  -629.168975   
+         25\%     226.233469   -52.960000  -78.107894   389.348038  -101.041681   
+         50\%     565.267787   188.591850   -7.379187   648.303488    65.744512   
+         75\%     873.664975   464.040735   88.606700   970.014762   318.922388   
+         max    4982.597425  4151.461700  541.670875  5015.867975  4118.191100   
+         
+                    MAngle          V13          V23         VMax      VAngle  
+         count  888.000000   888.000000   888.000000   888.000000  888.000000  
+         mean    -3.471924    -8.397617    -6.917992   422.129671   -1.421440  
+         std     37.261246   363.124529   357.849489   481.578875   95.332948  
+         min    -89.499000 -2327.440000 -2369.987500     5.740000 -175.304500  
+         25\%    -21.153500  -155.916250  -145.062500   170.406875  -85.078500  
+         50\%     -1.442375   -26.580000     0.235000   286.978750   -0.512125  
+         75\%     14.985750   155.240625   139.566250   473.906250   73.495437  
+         max     89.356000  2189.277500  2075.260000  4393.025000  178.232000  
+\end{Verbatim}
+            
+    \subsection{Plotting the Contour Map of Axial Factored Dead + Live load
+of Mat
+Foundation}\label{plotting-the-contour-map-of-axial-factored-dead-live-load-of-mat-foundation}
+
+    \subsection{Design of Steel along
+X-Direction}\label{design-of-steel-along-x-direction}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{plot\PYZus{}contour\PYZus{}map}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ShellForcesCLEAN\PYZhy{}1500mm.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{stress\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{level} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nipy\PYZus{}spectral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oakrdige Building 2: Factored Moment (kN.m / m) Along X\PYZhy{}axis Factored Dead + Live Stresses on Mat Foundation Heat Map}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{fsize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mat_Foundation_Analysis_files/Mat_Foundation_Analysis_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Maximum Bottom bar reinforcement for C6 and C14:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{Moment} \PY{o}{=} \PY{l+m+mf}{1.62}\PY{o}{*}\PY{l+m+mf}{1.39}\PY{o}{*}\PY{l+m+mi}{5000}
+         \PY{n}{design\PYZus{}steel\PYZus{}rein}\PY{p}{(}\PY{n}{Mu} \PY{o}{=} \PY{n}{Moment}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mi}{1620}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{l+m+mi}{28}\PY{p}{,} \PY{n}{layers} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cover} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+p: 0.003130069464583729
+pmin:  0.0034
+4/3*p:  0.0042
+usep:  0.0034
+Moment:  11259.00, no of bars: 38 using  28 mm rebar 1 layers
+spacing:  135 mm
+
+    \end{Verbatim}
+
+    \textbf{Maximum Bottom bar reinforcement for C24, C25, C19, C15 and C7:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{Moment} \PY{o}{=} \PY{l+m+mf}{1.62}\PY{o}{*}\PY{l+m+mf}{1.39}\PY{o}{*}\PY{l+m+mi}{3000}
+         \PY{n}{design\PYZus{}steel\PYZus{}rein}\PY{p}{(}\PY{n}{Mu} \PY{o}{=} \PY{n}{Moment}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{5200}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{l+m+mi}{28}\PY{p}{,} \PY{n}{layers} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cover} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+p: 0.0017380376821601482
+pmin:  0.0034
+4/3*p:  0.0023
+usep:  0.0023
+Moment:  6755.40, no of bars: 28 using  28 mm rebar 1 layers
+spacing:  158 mm
+
+    \end{Verbatim}
+
+    \textbf{Maximum Bottom bar reinforcement for C11 and C13:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{Moment} \PY{o}{=} \PY{l+m+mf}{1.62}\PY{o}{*}\PY{l+m+mf}{1.39}\PY{o}{*}\PY{l+m+mi}{800}
+         \PY{n}{design\PYZus{}steel\PYZus{}rein}\PY{p}{(}\PY{n}{Mu} \PY{o}{=} \PY{n}{Moment}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{l+m+mi}{1620}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{l+m+mi}{28}\PY{p}{,} \PY{n}{layers} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cover} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+p: 0.0007386522711734751
+pmin:  0.0034
+4/3*p:  0.0010
+usep:  0.0020
+Moment:  1801.44, no of bars: 15 using  28 mm rebar 1 layers
+spacing:  99 mm
+
+    \end{Verbatim}
+
+    \subsection{Design of Steel along
+Y-Direction}\label{design-of-steel-along-y-direction}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{plot\PYZus{}contour\PYZus{}map}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ShellForcesCLEAN\PYZhy{}1500mm.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{stress\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{level} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{650}\PY{p}{,} \PY{l+m+mi}{4200}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nipy\PYZus{}spectral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oakrdige Building 2: Factored Moment (kN.m / m) Along Y\PYZhy{}axis Factored Dead + Live Stresses on Mat Foundation Heat Map}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{fsize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mat_Foundation_Analysis_files/Mat_Foundation_Analysis_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Maximum Bottom bar reinforcement for C6 and C14}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{Moment} \PY{o}{=} \PY{l+m+mf}{1.32}\PY{o}{*}\PY{l+m+mf}{1.62}\PY{o}{*}\PY{l+m+mi}{3500}
+         \PY{n}{design\PYZus{}steel\PYZus{}rein}\PY{p}{(}\PY{n}{Mu} \PY{o}{=} \PY{n}{Moment}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{l+m+mi}{1390}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{l+m+mi}{28}\PY{p}{,} \PY{n}{layers} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cover} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+p: 0.0018017250286220137
+pmin:  0.0034
+4/3*p:  0.0024
+usep:  0.0024
+Moment:  7484.40, no of bars: 31 using  28 mm rebar 1 layers
+spacing:  168 mm
+
+    \end{Verbatim}
+
+    \textbf{Maximum Bottom bar reinforcement for C19, C24, and C25}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{Moment} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mf}{1.32}\PY{o}{*}\PY{l+m+mf}{1.62}\PY{o}{*}\PY{l+m+mi}{2500}
+         \PY{n}{design\PYZus{}steel\PYZus{}rein}\PY{p}{(}\PY{n}{Mu} \PY{o}{=} \PY{n}{Moment}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{l+m+mi}{1390}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{l+m+mi}{28}\PY{p}{,} \PY{n}{layers} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cover} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+p: 0.003919320516904343
+pmin:  0.0034
+4/3*p:  0.0052
+usep:  0.0039
+Moment:  16038.00, no of bars: 50 using  28 mm rebar 1 layers
+spacing:  148 mm
+
+    \end{Verbatim}
+
+    \textbf{Maximum Bottom bar reinforcement for C7 and C15}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{Moment} \PY{o}{=} \PY{l+m+mf}{1.32}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mf}{1.62}\PY{o}{*}\PY{l+m+mi}{3000}
+         \PY{n}{design\PYZus{}steel\PYZus{}rein}\PY{p}{(}\PY{n}{Mu} \PY{o}{=} \PY{n}{Moment}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{l+m+mi}{1390}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{l+m+mi}{28}\PY{p}{,} \PY{n}{layers} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cover} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+p: 0.004730638398353554
+pmin:  0.0034
+4/3*p:  0.0063
+usep:  0.0047
+Moment:  19245.60, no of bars: 61 using  28 mm rebar 1 layers
+spacing:  137 mm
+
+    \end{Verbatim}
+
+    \textbf{Maximum Top bar reinforcement for Mat Foundation both ways}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{Moment} \PY{o}{=} \PY{l+m+mf}{1.32}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mi}{600}\PY{o}{*}\PY{l+m+mf}{1.62}
+         \PY{n}{design\PYZus{}steel\PYZus{}rein}\PY{p}{(}\PY{n}{Mu} \PY{o}{=} \PY{n}{Moment}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{l+m+mi}{1390}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{l+m+mi}{28}\PY{p}{,} \PY{n}{layers} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cover} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+p: 0.000920885805596799
+pmin:  0.0034
+4/3*p:  0.0012
+usep:  0.0020
+Moment:  3849.12, no of bars: 26 using  28 mm rebar 1 layers
+spacing:  174 mm
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{plot\PYZus{}contour\PYZus{}map}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ShellForcesCLEAN\PYZhy{}1500mm.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{stress\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{VMax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{level} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{4400}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nipy\PYZus{}spectral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oakrdige Building 2: Maximum Punching Shear Force (kN / m) on Mat Foundation Heat Map}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{fsize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Mat_Foundation_Analysis_files/Mat_Foundation_Analysis_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}contour\PYZus{}map}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,} \PY{n}{stress\PYZus{}name}\PY{p}{,} \PY{n}{level}\PY{p}{,} \PY{n}{color}\PY{p}{,} \PY{n}{title}\PY{p}{,} \PY{n}{fsize}\PY{p}{)}\PY{p}{:} 
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    file\PYZus{}name: name of dataframe to use}
+        \PY{l+s+sd}{    stress\PYZus{}name: name of stresses or forces to by analyzed}
+        \PY{l+s+sd}{    level = level or range of stresses and its interval. List.}
+        \PY{l+s+sd}{    color = color or contour map for cmap. e.g. plt.cm.Spectral.}
+        \PY{l+s+sd}{    title = title of chart. String.}
+        \PY{l+s+sd}{    fzise = figure size. List}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{c+c1}{\PYZsh{} import statements}
+            \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+            \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+            \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+            \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{tri} \PY{k}{as} \PY{n+nn}{tri}
+            \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+            \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{lines} \PY{k}{as} \PY{n+nn}{lines}
+            \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+            
+            \PY{c+c1}{\PYZsh{} reading data from excel and converting it to pandas dataframe}
+            \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Joint}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} mesh values}
+            \PY{n}{x} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GlobalX (mm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{1000}
+            \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GlobalY (mm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{1000}
+            \PY{n}{z} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{stress\PYZus{}name}\PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{} making figure to plot on}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{fsize}\PY{p}{)}
+            \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} plotting columns}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{26.9}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mf}{26.9}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mf}{4.1}\PY{p}{,} \PY{l+m+mf}{22.75}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mf}{4.1}\PY{p}{,} \PY{l+m+mf}{18.9}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{18.9}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C14}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mf}{18.9}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C15}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mf}{10.9}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C19}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{2.9}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mf}{2.9}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{label} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} annotating columns}
+            \PY{n}{n} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C14}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C15}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C19}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mf}{4.1}\PY{p}{,}\PY{l+m+mf}{4.1}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{]}
+            \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{26.9}\PY{p}{,}\PY{l+m+mf}{26.9}\PY{p}{,}\PY{l+m+mf}{22.75}\PY{p}{,}\PY{l+m+mf}{18.9}\PY{p}{,}\PY{l+m+mf}{18.9}\PY{p}{,}\PY{l+m+mf}{18.9}\PY{p}{,}\PY{l+m+mf}{10.9}\PY{p}{,}\PY{l+m+mf}{2.9}\PY{p}{,}\PY{l+m+mf}{2.9}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{txt} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{n}{txt}\PY{p}{,} \PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{b}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+                
+            \PY{c+c1}{\PYZsh{} plotting Shearwall SW\PYZhy{}1 as lines}
+            \PY{n}{line1} \PY{o}{=} \PY{n}{lines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{4.552}\PY{p}{,}\PY{l+m+mf}{4.552}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{13.24}\PY{p}{,}\PY{l+m+mf}{16.19}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{line2} \PY{o}{=} \PY{n}{lines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{4.552}\PY{p}{,}\PY{l+m+mf}{9.852}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{16.19}\PY{p}{,}\PY{l+m+mf}{16.19}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{line3} \PY{o}{=} \PY{n}{lines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{9.852}\PY{p}{,}\PY{l+m+mf}{9.852}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{13.24}\PY{p}{,}\PY{l+m+mf}{16.90}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{line4} \PY{o}{=} \PY{n}{lines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{12.502}\PY{p}{,}\PY{l+m+mf}{12.502}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{13.24}\PY{p}{,}\PY{l+m+mf}{16.90}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{line5} \PY{o}{=} \PY{n}{lines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{9.852}\PY{p}{,}\PY{l+m+mf}{12.502}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{16.90}\PY{p}{,}\PY{l+m+mf}{16.90}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}line}\PY{p}{(}\PY{n}{line1}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}line}\PY{p}{(}\PY{n}{line2}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}line}\PY{p}{(}\PY{n}{line3}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}line}\PY{p}{(}\PY{n}{line4}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}line}\PY{p}{(}\PY{n}{line5}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SW\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{6.5}\PY{p}{,}\PY{l+m+mf}{14.54}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} plotting Shearwall SW\PYZhy{}2 as lines}
+            \PY{n}{line6} \PY{o}{=} \PY{n}{lines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{4.552}\PY{p}{,}\PY{l+m+mf}{4.552}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{6.11}\PY{p}{,}\PY{l+m+mf}{9.06}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{line7} \PY{o}{=} \PY{n}{lines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{12.502}\PY{p}{,}\PY{l+m+mf}{12.502}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{6.11}\PY{p}{,}\PY{l+m+mf}{9.06}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{line8} \PY{o}{=} \PY{n}{lines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{4.552}\PY{p}{,}\PY{l+m+mf}{12.502}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{6.11}\PY{p}{,}\PY{l+m+mf}{6.11}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}line}\PY{p}{(}\PY{n}{line6}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}line}\PY{p}{(}\PY{n}{line7}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}line}\PY{p}{(}\PY{n}{line8}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SW\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{7.8}\PY{p}{,}\PY{l+m+mf}{7.5}\PY{p}{)}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} making plot mesh and interpolation of x,y and z values for contour map}
+            \PY{n}{nptsx}\PY{p}{,} \PY{n}{nptsy} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+            \PY{n}{xg}\PY{p}{,} \PY{n}{yg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{nptsx}\PY{p}{)}\PY{p}{,}
+                                 \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{nptsy}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{triangles} \PY{o}{=} \PY{n}{tri}\PY{o}{.}\PY{n}{Triangulation}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+            \PY{n}{tri\PYZus{}interp} \PY{o}{=} \PY{n}{tri}\PY{o}{.}\PY{n}{CubicTriInterpolator}\PY{p}{(}\PY{n}{triangles}\PY{p}{,} \PY{n}{z}\PY{p}{)}
+            \PY{n}{zg} \PY{o}{=} \PY{n}{tri\PYZus{}interp}\PY{p}{(}\PY{n}{xg}\PY{p}{,} \PY{n}{yg}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} change levels here according to your data}
+            \PY{n}{levels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{level}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{level}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{level}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{colormap} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{xg}\PY{p}{,} \PY{n}{yg}\PY{p}{,} \PY{n}{zg}\PY{p}{,} \PY{n}{levels}\PY{p}{,}
+                                   \PY{n}{cmap}\PY{o}{=}\PY{n}{color}\PY{p}{,}
+                                   \PY{n}{norm}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{Normalize}\PY{p}{(}\PY{n}{vmax}\PY{o}{=}\PY{n}{z}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{vmin}\PY{o}{=}\PY{n}{z}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                   \PY{n}{zorder} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} add a colorbar}
+            \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{colormap}\PY{p}{,}
+                         \PY{n}{orientation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} horizontal colour bar}
+                         \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.50}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} making gridlines}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{x}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{equal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{box}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} plot title and label}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X (m)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y (m)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} show plot}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k}{def} \PY{n+nf}{design\PYZus{}steel\PYZus{}rein}\PY{p}{(}\PY{n}{Mu}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{db}\PY{p}{,} \PY{n}{layers}\PY{p}{,} \PY{n}{cover}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Design the steel reinforment based on Moment}
+         \PY{l+s+sd}{    Mu = Factored moment (kN*m)}
+         \PY{l+s+sd}{    b = base (mm)}
+         \PY{l+s+sd}{    d = depth (mm)}
+         \PY{l+s+sd}{    db = bar diameter (mm)}
+         \PY{l+s+sd}{    cover = concrete cover (mm)}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{d} \PY{o}{=} \PY{n}{d} \PY{o}{\PYZhy{}} \PY{n}{cover}
+             \PY{n}{fy} \PY{o}{=} \PY{l+m+mi}{414}
+             \PY{n}{fc} \PY{o}{=} \PY{l+m+mi}{35}
+             \PY{n}{m} \PY{o}{=} \PY{n}{fy} \PY{o}{/} \PY{l+m+mf}{0.85} \PY{o}{/} \PY{n}{fc}
+             \PY{n}{Ru} \PY{o}{=} \PY{n}{Mu} \PY{o}{*} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6} \PY{o}{/} \PY{l+m+mf}{0.9} \PY{o}{/} \PY{n}{b} \PY{o}{/} \PY{n}{d}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+             \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{m} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Ru}\PY{o}{*}\PY{n}{m}\PY{o}{/}\PY{n}{fy}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
+             \PY{n}{pmin} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{0.25} \PY{o}{*} \PY{p}{(}\PY{n}{fc}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5} \PY{o}{/} \PY{n}{fy}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mf}{1.4}\PY{o}{/}\PY{n}{fy}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{p} \PY{o}{\PYZgt{}} \PY{n}{pmin}\PY{p}{:}
+                 \PY{n}{usep} \PY{o}{=} \PY{n}{p}
+             \PY{k}{elif} \PY{n}{p} \PY{o}{\PYZlt{}} \PY{n}{pmin}\PY{p}{:}
+                 \PY{n}{usep} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{/}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{p}\PY{p}{,} \PY{n}{pmin}\PY{p}{)}
+                 \PY{n}{usep} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{usep}\PY{p}{,} \PY{l+m+mf}{0.002}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{usep} \PY{o}{=} \PY{n}{pmin}
+                 
+             \PY{n}{As} \PY{o}{=} \PY{n}{usep} \PY{o}{*} \PY{n}{b} \PY{o}{*} \PY{n}{d}
+             \PY{n}{Ab} \PY{o}{=} \PY{l+m+mf}{3.14159}\PY{o}{*}\PY{n}{db}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{/}\PY{l+m+mi}{4} \PY{o}{*} \PY{n}{layers}
+             \PY{n}{spacing} \PY{o}{=} \PY{p}{(}\PY{n}{b} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{cover}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{As}\PY{o}{/}\PY{n}{Ab}\PY{p}{)}\PY{o}{*}\PY{n}{db}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{db}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pmin: }\PY{l+s+si}{\PYZob{}0: 0.4f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pmin}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4/3*p: }\PY{l+s+si}{\PYZob{}0: 0.4f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{/}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{p}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usep: }\PY{l+s+si}{\PYZob{}0: 0.4f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{usep}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moment: }\PY{l+s+si}{\PYZob{}0: 0.2f\PYZcb{}}\PY{l+s+s1}{, no of bars:}\PY{l+s+si}{\PYZob{}1: 0.0f\PYZcb{}}\PY{l+s+s1}{ using }\PY{l+s+si}{\PYZob{}2: 0.0f\PYZcb{}}\PY{l+s+s1}{ mm rebar }\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s1}{ layers}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{Mu}\PY{p}{,} \PY{n}{As}\PY{o}{/}\PY{n}{Ab}\PY{p}{,} \PY{n}{db}\PY{p}{,} \PY{n}{layers}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spacing: }\PY{l+s+si}{\PYZob{}0: 0.0f\PYZcb{}}\PY{l+s+s1}{ mm}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{spacing}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} 
+             
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
